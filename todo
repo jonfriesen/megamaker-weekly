@@ -1,0 +1,8 @@
+- build a discourse post bot
+    - post to the this-week category (id 23)
+    - use a template
+- build slack poster
+    - needs to post a message
+    - needs to include the URL to this weeks post
+- deploy and run using Zeplo
+    - cron job
