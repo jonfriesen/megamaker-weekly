@@ -1,8 +1,7 @@
-- build a discourse post bot
-    - post to the this-week category (id 23)
-    - use a template
-- build slack poster
-    - needs to post a message
-    - needs to include the URL to this weeks post
-- deploy and run using Zeplo
-    - cron job
+Comment public code
+Solve the Todo's
+Add a ReadMe
+Add a license
+Move to megamaker repository
+More unit tests
+Travis CI/CD that deploys to Zeplo https://jonfriesen.ca/blog/easy-continuous-integration-for-go/

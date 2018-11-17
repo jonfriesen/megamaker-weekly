@@ -20,5 +20,6 @@ RUN go build ./cmd/megamaker-weekly
 FROM alpine:latest
 
 COPY --from=builder ./go/src/github.com/jonfriesen/megamaker-weekly/megamaker-weekly /usr/bin/megamaker-weekly
+COPY --from=builder /etc/ssl/certs/ /etc/ssl/certs
 
 ENTRYPOINT [ "./usr/bin/megamaker-weekly" ]

@@ -6,7 +6,6 @@ import (
 	"fmt"
 	"mime/multipart"
 	"net/http"
-	"time"
 )
 
 const DiscourseURL = "https://club.megamaker.co"
@@ -14,8 +13,8 @@ const DiscourseURL = "https://club.megamaker.co"
 func BuildDiscourseRequest(apiKey string) (*http.Request, error) {
 	url := DiscourseURL + "/posts"
 
-	// d := buildDate()
-	d := time.Now().String()
+	d := buildDate()
+	// d := time.Now().String()
 
 	params := make(map[string]string)
 

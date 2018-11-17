@@ -10,12 +10,14 @@ type SlackMessage struct {
 	Text      string `json:"text"`
 	Username  string `json:"username"`
 	IconEmoji string `json:"icon_emoji"`
+	Channel   string `json:"channel"`
 }
 
 const (
 	text      = "Happy Monday MegaMakers! :mm:\nOur weekly <{{.DiscoursePostURL}}|WAYWOTW post is up!>\nCheckout what we are all working on!"
 	username  = "JonBot"
 	iconemoji = ":robot_face:"
+	channel   = "general"
 )
 
 func BuildSlackRequest(apiURL, discoursePostURL string) (*http.Request, error) {
@@ -26,6 +28,7 @@ func BuildSlackRequest(apiURL, discoursePostURL string) (*http.Request, error) {
 		Text:      msg,
 		Username:  username,
 		IconEmoji: iconemoji,
+		Channel:   channel,
 	}
 
 	return createJSONHTTPRequest(apiURL, sMsg)
