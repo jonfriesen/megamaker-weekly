@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"mime/multipart"
 	"net/http"
+	"strconv"
 )
 
 const DiscourseURL = "https://club.megamaker.co"
@@ -23,6 +24,20 @@ func BuildDiscourseRequest(apiKey string) (*http.Request, error) {
 	params["api_username"] = "jon"
 	params["raw"] = createPostBody()
 	params["category"] = "23"
+
+	return createMultipartFormRequest(url, params)
+}
+
+func BuildDiscourseAutoCloseRequest(apiKey, topicId string) (*http.Request, error) {
+	url := fmt.Sprintf("%s/t/%s/timer", DiscourseURL, topicId)
+
+	fmt.Println(url)
+	params := make(map[string]string)
+
+	params["api_key"] = apiKey
+	params["api_username"] = "jon"
+	params["status_type"] = "close"
+	params["time"] = buildCloseDate()
 
 	return createMultipartFormRequest(url, params)
 }
@@ -51,16 +66,25 @@ func createMultipartFormRequest(url string, params map[string]string) (*http.Req
 	return r, nil
 }
 
-func GetSlug(resp *http.Response) string {
+func GetSlugAndID(resp *http.Response) (string, string) {
 	b := getStringBodyFromResponse(resp)
 
 	m := handleJSONBody(b)
 
-	return (*m)["topic_slug"]
+	// hack: we need to unmarshal again because too lazy to create object/custom unmarshaler
+	mi := handleJSONBodyInt(b)
+
+	return (*m)["topic_slug"], strconv.Itoa((*mi)["topic_id"])
 }
 
 func handleJSONBody(b string) *map[string]string {
 	m := make(map[string]string)
+	json.Unmarshal([]byte(b), &m)
+	return &m
+}
+
+func handleJSONBodyInt(b string) *map[string]int {
+	m := make(map[string]int)
 	json.Unmarshal([]byte(b), &m)
 	return &m
 }

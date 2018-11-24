@@ -48,6 +48,11 @@ func buildDate() string {
 	return fmt.Sprintf("%v %v, %v", t.Month().String(), t.Day(), t.Year())
 }
 
+func buildCloseDate() string {
+	t := time.Now().AddDate(0, 0, 7)
+	return fmt.Sprintf("%v-%v-%v 00:00-08:00", t.Year(), t.Month(), t.Day())
+}
+
 func getStringBodyFromResponse(res *http.Response) string {
 	defer res.Body.Close()
 	// todo handle this error

@@ -32,8 +32,17 @@ func main() {
 		log.Fatalf("Failed to execute Discourse request: %+v", err)
 	}
 
-	// get slug from discourse resp
-	slug := pkg.GetSlug(discourseResp)
+	slug, topicID := pkg.GetSlugAndID(discourseResp)
+
+	discourseCloseReq, err := pkg.BuildDiscourseAutoCloseRequest(discourseAPIKey, topicID)
+	if err != nil {
+		log.Fatalf("Failed to create Discourse close request: %+v", err)
+	}
+
+	_, err = pkg.DoPost(discourseCloseReq)
+	if err != nil {
+		log.Fatalf("Failed to execute Discourse close request: %+v", err)
+	}
 
 	// Create our slack HTTP request (/w URL from the discourse response)
 	slackReq, err := pkg.BuildSlackRequest(slackKeyURL, fmt.Sprintf("%s/t/%s", pkg.DiscourseURL, slug))

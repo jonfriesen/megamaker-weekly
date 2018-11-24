@@ -15,13 +15,13 @@ public: false
 mode: "RUN"
 
 # Automatic triggers that will run the service (HTTP triggers are added automatically)
-triggers:
-  # Schedule the service to run every minute (https://crontab.guru)
-  - type: "schedule/cron"
-    cron: "0 7 * * 1"
-    timezone: "America/Vancouver"
-    # Will call the latest deployment - see tagging deployment https://zeplo.io/docs/zeplo-cli#deploy
-    tag: "latest"
+# triggers:
+#   # Schedule the service to run every minute (https://crontab.guru)
+#   - type: "schedule/cron"
+#     cron: "0 7 * * 1"
+#     timezone: "America/Vancouver"
+#     # Will call the latest deployment - see tagging deployment https://zeplo.io/docs/zeplo-cli#deploy
+#     tag: "latest"
 
 # Build the contents of the directory (during deployment), and then run the compiled src at runtime
 build:
